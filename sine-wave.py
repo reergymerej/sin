@@ -24,7 +24,7 @@ class Wave:
         p = f"{round(self.phase, 3)} ({round(self.phase / 2 * math.pi * 10)}%)"
         v = round(self.value * a, 3)
 
-        left = (self.value * self.amp) + self.amp
+        left = math.ceil((self.value * self.amp) + self.amp)
         right = int(self.amp * 2 - left)
         return f"|{' ' * int(left)}*{' ' * right}|\t{self.time}s"
 
@@ -35,13 +35,13 @@ class Wave:
         self.phase += radians_per_step
         self.current_step += 1
         time_per_step = self.freq / steps_per_cycle
-        self.time = self.current_step * time_per_step
+        self.time = round(self.current_step * time_per_step, 2)
         self.phase = self.phase % (2 * math.pi)
         self.value = math.sin(self.phase)
         print(self.describe())
 
 freq = 1
-amp = 23
+amp = 42
 sample_rate = 60
 w = Wave(freq, amp, sample_rate)
 
